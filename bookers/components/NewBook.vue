@@ -22,22 +22,17 @@ export default {
   data() {
     return {
       title: "",
-      body: "",
-      user: null
+      body: ""
     };
   },
-  async created() {
-    await firebase.auth().onAuthStateChanged(user => {
-      if (user) {
-        this.user = user;
-        console.log(this.user.email);
-      } else {
-        console.log("userいないよ");
-      }
-    });
+  computed: {
+    user() {
+      return this.$store.state.currentUser;
+    }
   },
   methods: {
     async handleSubmit() {
+      console.log(this.user.id);
       const book = {
         title: this.title,
         body: this.body,
@@ -46,6 +41,9 @@ export default {
       const { data } = await axios.post("http://localhost:5000/v1/books", {
         book
       });
+      this.title = "";
+      this.body = "";
+      this.$emit("pushBook", book);
     }
   }
 };

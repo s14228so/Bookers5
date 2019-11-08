@@ -11,7 +11,7 @@
       </tbody>
     </table>
 
-    <NewBook />
+    <NewBook @pushBook="pushBook" />
   </div>
 </template>
 
@@ -41,6 +41,10 @@ export default {
           book: book
         }
       });
+    },
+    pushBook(book) {
+      console.log("来た！");
+      this.books.push(book);
     }
   }
 };

@@ -24,6 +24,7 @@ export default {
         .auth()
         .signInWithEmailAndPassword(this.email, this.password)
         .then(() => {
+          console.log("ログイン！");
           this.email = "";
           this.password = "";
           this.$router.push("/books");
