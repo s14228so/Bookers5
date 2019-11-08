@@ -38,11 +38,13 @@ export default {
         body: this.body,
         user_id: this.user.id
       };
+      console.log(book);
       const { data } = await axios.post("http://localhost:5000/v1/books", {
         book
       });
       this.title = "";
       this.body = "";
+      book.user = this.user;
       this.$emit("pushBook", book);
     }
   }
