@@ -8,6 +8,7 @@
       <tbody v-for="(book, i) in books" :key="i" @click="routerPush(book)">
         <td>{{book.title}}</td>
         <td>{{book.body}}</td>
+        <td>{{book.user.name}}</td>
       </tbody>
     </table>
 

@@ -1,7 +1,7 @@
 class V1::BooksController < ApplicationController
   def index
     books = Book.all
-    render :json => books
+    render :json => books.to_json(:include => :user)
   end
 
   def create
