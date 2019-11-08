@@ -10,7 +10,7 @@ const store = () => {
         },
         mutations: {
             setUser(state, payload) {
-                state = payload
+                state.currentUser = payload
             }
         },
     })

@@ -1,4 +1,5 @@
 import firebase from "firebase"
+
 var firebaseConfig = {
     apiKey: "AIzaSyCcVLfMrKORcoSV36Gd07Ot6PgsgG5XMXo",
     authDomain: "bookers2-d2bf3.firebaseapp.com",

@@ -38,9 +38,12 @@ export default {
         .auth()
         .createUserWithEmailAndPassword(this.email, this.password)
         .then(() => {
-          axios.post("http://localhost:5000/users", {
+          const user = {
             email: this.email,
             name: this.name
+          };
+          axios.post("http://localhost:5000/v1/users", {
+            user
           });
           this.email = "";
           this.password = "";

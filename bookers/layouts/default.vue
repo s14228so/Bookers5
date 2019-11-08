@@ -24,7 +24,7 @@
           <li class="nav-item">
             <nuxt-link to="/mypage" class="nav-link">Mypage</nuxt-link>
           </li>
-          <li class="nav-item">
+          <li class="nav-item" v-if="user">
             <a class="nav-link" @click="logOut">ログアウト</a>
           </li>
         </ul>
@@ -38,9 +38,12 @@
 import firebase from "@/plugins/firebase";
 export default {
   data() {
-    return {
-      user: null
-    };
+    return {};
+  },
+  computed: {
+    user() {
+      return this.$store.state.currentUser;
+    }
   },
   methods: {
     logOut() {
@@ -49,20 +52,10 @@ export default {
         .auth()
         .signOut()
         .then(function() {
-          console.log(" Sign-out successful.");
           vm.$router.push("/login");
+          vm.$store.commit("setUser", null);
         });
     }
-  },
-  async created() {
-    await firebase.auth().onAuthStateChanged(user => {
-      if (user) {
-        this.user = user;
-        console.log(this.user.email);
-      } else {
-        console.log("userいないよ");
-      }
-    });
   }
 };
 </script>
