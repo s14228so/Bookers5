@@ -3,9 +3,7 @@ import axios from "axios"
 
 const init = ({ store }) => {
     firebase.auth().onAuthStateChanged(async user => {
-        console.log("userいるよ！！！！！！！")
         if (user) {
-            console.log("userいるよ！！！！！！！")
             const { data } = await axios.get(`http://localhost:5000/v1/users?email=${user.email}`)
             store.commit("setUser", data)
 

@@ -1,22 +1,27 @@
 <template>
-  <div class="container">
-    <h2>新規登録</h2>
-    <form @submit.prevent="login">
-      <div>
-        <label for>メールアドレス</label>
-        <input type="text" v-model="email" />
+  <div class="mt-5">
+    <div class="row">
+      <div class="col-sm-5">
+        <h2>新規登録</h2>
+        <form @submit.prevent="login">
+          <div>
+            <label for>メールアドレス</label>
+            <input type="text" v-model="email" class="form-control" />
+          </div>
+          <div>
+            <label for>名前</label>
+            <input type="text" v-model="name" class="form-control" />
+          </div>
+          <div>
+            <label for>パスワード</label>
+            <input type="password" v-model="password" class="form-control" />
+          </div>
+          <div class="mt-3">
+            <input type="submit" class="btn btn-primary" />
+          </div>
+        </form>
       </div>
-      <div>
-        <label for>名前</label>
-        <input type="text" v-model="name" />
-      </div>
-      <div>
-        <label for>パスワード</label>
-        <input type="password" v-model="password" />
-      </div>
-
-      <input type="submit" />
-    </form>
+    </div>
   </div>
 </template>
 
@@ -33,7 +38,6 @@ export default {
   },
   methods: {
     login() {
-      console.log(this.email);
       firebase
         .auth()
         .createUserWithEmailAndPassword(this.email, this.password)
@@ -42,12 +46,16 @@ export default {
             email: this.email,
             name: this.name
           };
-          axios.post("http://localhost:5000/v1/users", {
-            user
-          });
-          this.email = "";
-          this.password = "";
-          this.$router.push("/books");
+          axios
+            .post("http://localhost:5000/v1/users", {
+              user
+            })
+            .then(user => {
+              this.$store.commit("setUser", user);
+              this.email = "";
+              this.password = "";
+              this.$router.push("/books");
+            });
         });
     }
   }

@@ -16,6 +16,13 @@ class V1::BooksController < ApplicationController
     render :json => book
   end
 
+  def update
+    book = Book.find(params[:id])
+    if book.update(book_params)
+      render :json => book
+    end
+  end
+
   def destroy
     book = Book.find(params[:id])
     if book.destroy

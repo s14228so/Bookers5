@@ -1,41 +1,26 @@
 <template>
-  <div class="container">
-    <div>
-      <logo />
-      <h1 class="title">
-        bookers
+  <div class="row text-center">
+    <div class="col-md-6 offset-md-3 mt-5">
+      <h1 class="mb-5">
+        welcome to
+        <strong>Bookers</strong> !!
       </h1>
-      <h2 class="subtitle">
-        My groundbreaking Nuxt.js project
-      </h2>
-      <div class="links">
-        <a
-          href="https://nuxtjs.org/"
-          target="_blank"
-          class="button--green"
-        >
-          Documentation
-        </a>
-        <a
-          href="https://github.com/nuxt/nuxt.js"
-          target="_blank"
-          class="button--grey"
-        >
-          GitHub
-        </a>
+      <div class="btn-wrapper">
+        <nuxt-link to="/login" class="btn btn-info col-xs-10 col-xs-offset-1 sign_in">Log in</nuxt-link>
+        <nuxt-link to="/signup" class="btn btn-success col-xs-10 col-xs-offset-1 sign_up">Sign Up</nuxt-link>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import Logo from '~/components/Logo.vue'
+import Logo from "~/components/Logo.vue";
 
 export default {
   components: {
     Logo
   }
-}
+};
 </script>
 
 <style>
@@ -49,8 +34,8 @@ export default {
 }
 
 .title {
-  font-family: 'Quicksand', 'Source Sans Pro', -apple-system, BlinkMacSystemFont,
-    'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  font-family: "Quicksand", "Source Sans Pro", -apple-system, BlinkMacSystemFont,
+    "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   display: block;
   font-weight: 300;
   font-size: 100px;
