@@ -39,6 +39,7 @@ export default {
       this.title = "";
       this.body = "";
       book.user = this.user;
+      book.isEdit = false;
       this.$emit("pushBook", book);
 
       this.$store.commit("setNotice", {

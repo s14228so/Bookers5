@@ -33,7 +33,6 @@ export default {
         .auth()
         .signInWithEmailAndPassword(this.email, this.password)
         .then(() => {
-          console.log("ログイン！");
           this.email = "";
           this.password = "";
           this.$router.push("/books");
@@ -45,7 +44,6 @@ export default {
         .auth()
         .signInWithPopup(provider)
         .then(async user => {
-          console.log(user);
           const { data } = await axios.get(`/users?email=${user.email}`);
           this.$store.commit("setUser", data);
         });

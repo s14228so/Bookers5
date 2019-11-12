@@ -27,10 +27,19 @@
 </template>
 
 <script>
+import axios from "@/plugins/axios";
 export default {
-  computed: {
-    user() {
-      return this.$store.state.currentUser;
+  data() {
+    return {
+      user: this.$route.params.id
+        ? this.getUser()
+        : this.$store.state.currentUser
+    };
+  },
+  methods: {
+    async getUser() {
+      const { data } = await axios.get(`/users/${this.$route.params.id}`);
+      this.user = data;
     }
   }
 };

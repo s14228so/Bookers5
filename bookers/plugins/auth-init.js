@@ -8,7 +8,7 @@ const init = ({ store }) => {
             store.commit("setUser", data)
 
         } else {
-            console.log("userいないよ");
+            store.commit("setUser", null)
         }
     });
 }

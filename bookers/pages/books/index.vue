@@ -1,38 +1,39 @@
 <template>
-  <div class="container mt-5">
-    <div class="row">
-      <SideBar @pushBook="pushBook" />
-      <div class="col-sm-9">
-        <h3>Books</h3>
-        <table class="table">
-          <thead>
-            <tr>
-              <th>タイトル</th>
-              <th>本文</th>
-              <th>ユーザー名</th>
-              <th>編集</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr v-for="(book, i) in books" :key="i">
-              <td v-if="!book.isEdit">{{book.title}}</td>
-              <td v-if="!book.isEdit">{{book.body}}</td>
-              <td v-if="book.isEdit">
-                <input type="text" v-model="book.title" class="form-control" />
-              </td>
-              <td v-if="book.isEdit">
-                <input type="text" v-model="book.body" class="form-control" />
-              </td>
+  <div class="row">
+    <SideBar @pushBook="pushBook" />
+    <div class="col-sm-9">
+      <h3>Books</h3>
+      <table class="table">
+        <thead>
+          <tr>
+            <th>タイトル</th>
+            <th>本文</th>
+            <th>ユーザー名</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="(book, i) in books" :key="i">
+            <td v-if="!book.isEdit">{{book.title}}</td>
+            <td v-if="!book.isEdit">{{book.body}}</td>
+            <td v-if="book.isEdit">
+              <input type="text" v-model="book.title" class="form-control" />
+            </td>
+            <td v-if="book.isEdit">
+              <input type="text" v-model="book.body" class="form-control" />
+            </td>
 
-              <td>{{book.user.name}}</td>
-              <td v-if="!book.isEdit" @click="book.isEdit = true" class="cursor">編集</td>
-              <td v-else>
-                <button class="btn btn-primary" @click="edit(book)">完了</button>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
+            <td>{{book.user.name}}</td>
+            <td
+              v-if="book.user_id === currentUser.id && !book.isEdit"
+              @click="book.isEdit = true"
+              class="cursor"
+            >編集</td>
+            <td v-if="book.isEdit">
+              <button class="btn btn-primary" @click="edit(book)">完了</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
     </div>
   </div>
 </template>
@@ -45,6 +46,16 @@ export default {
     return {
       books: []
     };
+  },
+  fetch({ store, redirect }) {
+    if (!store.state.currentUser) {
+      redirect("/login");
+    }
+  },
+  computed: {
+    currentUser() {
+      return this.$store.state.currentUser;
+    }
   },
   components: {
     SideBar

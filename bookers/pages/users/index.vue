@@ -3,25 +3,14 @@
     <SideBar />
     <div class="col-sm-9">
       <h3>Users</h3>
-      <nuxt-link
-        :to="{ name: 'users-id-edit', params: { id: 1 } }"
-        class="col-xs-12 btn btn-default m-auto"
-      >編集</nuxt-link>
       <table class="table">
         <thead>
           <th>email</th>
           <th>name</th>
-          <th></th>
         </thead>
         <tbody v-for="(user, i) in users" :key="i" @click="routerPush(user)" class="user-cell">
           <td>{{user.email}}</td>
           <td>{{user.name}}</td>
-          <td>
-            <nuxt-link
-              :to="{ name: 'users-id-edit', params: { id: user.id } }"
-              class="col-xs-12 btn btn-default m-auto"
-            >編集</nuxt-link>
-          </td>
         </tbody>
       </table>
     </div>
@@ -37,6 +26,11 @@ export default {
     return {
       users: []
     };
+  },
+  fetch({ store, redirect }) {
+    if (!store.state.currentUser) {
+      redirect("/login");
+    }
   },
   components: {
     NewBook,

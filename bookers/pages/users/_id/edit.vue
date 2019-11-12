@@ -1,11 +1,18 @@
 <template>
-  <div>
+  <div class="col-sm-4">
     <h3>User編集</h3>
     <div>
       <form @submit.prevent="edit">
-        <input type="text" v-model="user.name" />
-        <input type="text" v-model="user.introduction" />
-        <input type="submit" />
+        <div class="form-group">
+          <label for>名前</label>
+          <input type="text" v-model="user.name" class="form-control" />
+        </div>
+        <div class="form-group">
+          <label for>自己紹介</label>
+          <input type="text" v-model="user.introduction" class="form-control" />
+        </div>
+
+        <input type="submit" value="更新" 　class="btn btn-info" />
       </form>
     </div>
   </div>
@@ -19,6 +26,11 @@ export default {
       user: this.$store.state.currentUser
     };
   },
+  fetch({ store, redirect, params }) {
+    if (params.id !== store.state.currentUser.id) {
+      redirect("/books");
+    }
+  },
   methods: {
     async edit() {
       const user = {
@@ -26,7 +38,6 @@ export default {
         introduction: this.user.introduction
       };
       const { data } = await axios.put(`/users/${this.user.id}`, { user });
-      console.log(data);
       this.$router.push("/books");
       this.$store.commit("setUser", data);
     }

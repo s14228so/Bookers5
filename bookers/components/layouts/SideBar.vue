@@ -1,6 +1,6 @@
 <template>
   <div class="col-sm-3">
-    <Profile class="mb-5" />
+    <Profile class="mb-5" user="user" />
     <NewBook @pushBook="pushBook" />
   </div>
 </template>
@@ -9,6 +9,7 @@
 import Profile from "@/components/Profile";
 import NewBook from "@/components/NewBook";
 export default {
+  props: ["user"],
   components: {
     Profile,
     NewBook

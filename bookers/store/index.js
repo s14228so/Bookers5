@@ -6,12 +6,7 @@ Vue.use(Vuex)
 const store = () => {
     return new Vuex.Store({
         state: {
-            currentUser: {
-                id: "",
-                email: "",
-                name: "",
-                introduction: ""
-            },
+            currentUser: null,
             notification: {
                 status: false,
                 message: ""
