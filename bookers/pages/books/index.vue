@@ -47,11 +47,11 @@ export default {
       books: []
     };
   },
-  fetch({ store, redirect }) {
-    if (!store.state.currentUser) {
-      redirect("/login");
-    }
-  },
+  //   fetch({ store, redirect }) {
+  //     if (!store.state.currentUser.status) {
+  //       redirect("/login");
+  //     }
+  //   },
   computed: {
     currentUser() {
       return this.$store.state.currentUser;

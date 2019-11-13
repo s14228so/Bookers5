@@ -46,6 +46,7 @@ export default {
         .then(async user => {
           const { data } = await axios.get(`/users?email=${user.email}`);
           this.$store.commit("setUser", data);
+          this.$router.push("/books");
         });
     }
   }
