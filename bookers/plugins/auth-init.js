@@ -1,7 +1,7 @@
 import firebase from "@/plugins/firebase"
 import axios from "axios"
 
-const init = ({ store }) => {
+const init = ({ store, redirect }) => {
     firebase.auth().onAuthStateChanged(async user => {
         if (user) {
             store.commit("login", true)
@@ -9,6 +9,7 @@ const init = ({ store }) => {
             store.commit("setUser", data)
 
         } else {
+            redirect("/login")
             store.commit("login", false)
             store.commit("setUser", null)
         }

@@ -2,7 +2,7 @@ class V1::UsersController < ApplicationController
   def index
     if params[:email] 
       user = User.find_or_create_by(email: params[:email])
-      render :json => user
+      render :json => user.to_json(:include => :books)
     else 
       users = User.all
       render :json =>  users

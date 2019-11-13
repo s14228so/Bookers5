@@ -4,7 +4,7 @@
     <div class="image">
       <img src />
     </div>
-    <table class="table">
+    <table class="table" v-if="user">
       <tbody>
         <tr></tr>
         <tr>
@@ -17,7 +17,7 @@
         </tr>
       </tbody>
     </table>
-    <div class="row text-center">
+    <div class="row text-center" v-if="user">
       <nuxt-link
         :to="{ name: 'users-id-edit', params: { id: user.id } }"
         class="col-xs-12 btn btn-default m-auto"
