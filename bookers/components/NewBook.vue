@@ -1,11 +1,25 @@
 <template>
   <div>
     <h3>New Book</h3>
+    <p style="color: orange;">{{titleMessage}}</p>
+
+    <p style="color: orange;">{{bodyMessage}}</p>
+
     <form @submit.prevent="handleSubmit">
       <label for>title</label>
+      {{title.length}} / 10
       <input type="text" v-model="title" class="form-control" />
+
       <label for>body</label>
-      <textarea name id cols="30" rows="10" v-model="body" class="form-control"></textarea>
+      {{body.length}} / 20
+      <textarea
+        name
+        id
+        cols="30"
+        rows="10"
+        v-model="body"
+        class="form-control"
+      ></textarea>
       <input type="submit" class="btn btn-primary mt-3" />
     </form>
   </div>
