@@ -2,38 +2,18 @@
   <div class="row">
     <SideBar @pushBook="pushBook" />
     <div class="col-sm-9" v-if="currentUser">
-      <h3>Books</h3>
-      <table class="table">
-        <thead>
-          <tr>
-            <th>タイトル</th>
-            <th>本文</th>
-            <th>ユーザー名</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr v-for="(book, i) in books" :key="i">
-            <td v-if="!book.isEdit">{{book.title}}</td>
-            <td v-if="!book.isEdit">{{book.body}}</td>
-            <td v-if="book.isEdit">
-              <input type="text" v-model="book.title" class="form-control" />
-            </td>
-            <td v-if="book.isEdit">
-              <input type="text" v-model="book.body" class="form-control" />
-            </td>
-
-            <td>{{book.user.name}}</td>
-            <td
-              v-if="(book.user_id === currentUser.id) && !book.isEdit"
-              @click="book.isEdit = true"
-              class="cursor"
-            >編集</td>
-            <td v-if="book.isEdit">
-              <button class="btn btn-primary" @click="edit(book)">完了</button>
-            </td>
-          </tr>
-        </tbody>
-      </table>
+      <v-card-title>
+        Books
+        <v-spacer></v-spacer>
+        <v-text-field v-model="search" label="Search" single-line hide-details></v-text-field>
+      </v-card-title>
+      <v-data-table
+        :search="search"
+        :headers="headers"
+        :items="books"
+        :items-per-page="15"
+        class="elevation-1"
+      ></v-data-table>
     </div>
   </div>
 </template>
@@ -44,7 +24,19 @@ import axios from "@/plugins/axios";
 export default {
   data() {
     return {
-      books: []
+      books: [],
+      search: "",
+      headers: [
+        {
+          text: "title",
+          align: "left",
+          sortable: false,
+          value: "title"
+        },
+        { text: "body", value: "body" },
+        { text: "username", value: "user.name" },
+        { text: "編集", value: "user.name" }
+      ]
     };
   },
   //   fetch({ store, redirect }) {
