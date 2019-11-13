@@ -25,7 +25,7 @@
             <td>{{user.name}}</td>
             <td
               v-if="book.user_id === user.id && !book.isEdit"
-              @click="book.isEdit = true"
+              @click="editStatus(book)"
               class="cursor"
             >編集</td>
             <td v-if="book.isEdit">
@@ -43,27 +43,28 @@ import SideBar from "@/components/layouts/SideBar";
 import axios from "@/plugins/axios";
 export default {
   data() {
-    return {};
+    return {
+      books: []
+    };
   },
   computed: {
     user() {
       return this.$store.state.currentUser;
-    },
-    books() {
-      const userBooks = this.user.books.map(book => {
-        book.isEdit = false;
-        return book;
-      });
-      return userBooks;
     }
   },
   mounted() {
-    console.log(this.books);
+    this.books = this.user.books.map(book => {
+      book.isEdit = false;
+      return book;
+    });
   },
   components: {
     SideBar
   },
   methods: {
+    editStatus(book) {
+      this.books = [{ ...book, isEdit: true }, ...this.books];
+    },
     routerPush(book) {
       this.$router.push({
         name: "books-id",

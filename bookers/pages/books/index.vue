@@ -1,7 +1,7 @@
 <template>
   <div class="row">
     <SideBar @pushBook="pushBook" />
-    <div class="col-sm-9">
+    <div class="col-sm-9" v-if="currentUser">
       <h3>Books</h3>
       <table class="table">
         <thead>
@@ -24,7 +24,7 @@
 
             <td>{{book.user.name}}</td>
             <td
-              v-if="book.user_id === currentUser.id && !book.isEdit"
+              v-if="(book.user_id === currentUser.id) && !book.isEdit"
               @click="book.isEdit = true"
               class="cursor"
             >編集</td>
@@ -54,6 +54,9 @@ export default {
   //   },
   computed: {
     currentUser() {
+      return this.$store.state.currentUser;
+    },
+    next() {
       return this.$store.state.currentUser;
     }
   },

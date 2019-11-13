@@ -27,11 +27,11 @@ export default {
       users: []
     };
   },
-  fetch({ store, redirect }) {
-    if (!store.state.currentUser) {
-      redirect("/login");
-    }
-  },
+  // fetch({ store, redirect }) {
+  //   if (!store.state.currentUser) {
+  //     redirect("/login");
+  //   }
+  // },
   components: {
     NewBook,
     SideBar
