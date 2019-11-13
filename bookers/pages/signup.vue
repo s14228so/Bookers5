@@ -19,6 +19,7 @@
           <div class="mt-3">
             <input type="submit" class="btn btn-primary" />
           </div>
+          <button class="btn btn-success mt-3" @click="googleLogin">Googleで登録</button>
         </form>
       </div>
     </div>
@@ -52,10 +53,35 @@ export default {
             })
             .then(user => {
               this.$store.commit("setUser", user);
+              this.$store.commit("setNotice", {
+                status: true,
+                message: "新規登録しました"
+              });
+              setTimeout(() => {
+                this.$store.commit("setNotice", {});
+              }, 2000);
               this.email = "";
               this.password = "";
               this.$router.push("/books");
             });
+        });
+    },
+    googleLogin() {
+      var provider = new firebase.auth.GoogleAuthProvider();
+      firebase
+        .auth()
+        .signInWithPopup(provider)
+        .then(async user => {
+          const { data } = await axios.get(`/users?email=${user.email}`);
+          this.$store.commit("setNotice", {
+            status: true,
+            message: "新規登録しました"
+          });
+          setTimeout(() => {
+            this.$store.commit("setNotice", {});
+          }, 2000);
+          this.$store.commit("setUser", data);
+          this.$router.push("/books");
         });
     }
   }

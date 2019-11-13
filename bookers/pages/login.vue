@@ -14,6 +14,7 @@
       <input type="submit" class="btn btn-info mt-3" />
     </form>
     <button class="btn btn-success mt-3" @click="googleLogin">Googleでログイン</button>
+    <button class="btn btn-info mt-3" @click="$router.push('/signup')">新規登録</button>
   </div>
 </template>
 
@@ -46,6 +47,14 @@ export default {
         .then(async user => {
           const { data } = await axios.get(`/users?email=${user.email}`);
           this.$store.commit("setUser", data);
+
+          this.$store.commit("setNotice", {
+            status: true,
+            message: "ログインしました"
+          });
+          setTimeout(() => {
+            this.$store.commit("setNotice", {});
+          }, 2000);
           this.$router.push("/books");
         });
     }

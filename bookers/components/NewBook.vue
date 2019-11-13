@@ -18,12 +18,26 @@ export default {
   data() {
     return {
       title: "",
-      body: ""
+      body: "",
+      titleOver: false,
+      bodyOver: false,
+      titleMessage: "",
+      bodyMessage: ""
     };
   },
   computed: {
     user() {
       return this.$store.state.currentUser;
+    }
+  },
+  watch: {
+    title: function(newValue, oldValue) {
+      this.titleOver = newValue.length > 10 ? true : false;
+      this.titleMessage = newValue.length > 10 ? "タイトルが多すぎだよ" : "";
+    },
+    body: function(newValue, oldValue) {
+      this.bodyOver = newValue.length > 20 ? true : false;
+      this.bodyMessage = newValue.length > 20 ? "本文が多すぎだよ" : "";
     }
   },
   methods: {

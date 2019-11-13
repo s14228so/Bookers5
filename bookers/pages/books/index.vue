@@ -34,8 +34,7 @@ export default {
           value: "title"
         },
         { text: "body", value: "body" },
-        { text: "username", value: "user.name" },
-        { text: "編集", value: "user.name" }
+        { text: "username", value: "user.name" }
       ]
     };
   },

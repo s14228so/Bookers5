@@ -40,6 +40,13 @@ export default {
       const { data } = await axios.put(`/users/${this.user.id}`, { user });
       this.$router.push("/books");
       this.$store.commit("setUser", data);
+      this.$store.commit("setNotice", {
+        status: true,
+        message: "ユーザー情報を更新しました"
+      });
+      setTimeout(() => {
+        this.$store.commit("setNotice", {});
+      }, 2000);
     }
   }
 };
